@@ -8,12 +8,19 @@ This recipe serves static HTML pages.
 
 ## Quick execution
 
+Change to folder `recipes/01-static`:
+
 ```bash
 ❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/01-static
+```
+
+Change the content of the `html` folder or use the example inside. Start the Docker container after that:
+
+```bash
 ❯ docker-compose up -d
 ```
 
-* @open: http://localhost:8000/.
+Open http://localhost:8000/ to see your content.
 
 ## Commands
 
