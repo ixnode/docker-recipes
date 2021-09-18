@@ -1,6 +1,6 @@
 # 01) Serve static pages
 
-This recipe serves static HTML pages.
+This docker recipe serves static HTML pages.
 
 ## Used Docker images
 
@@ -14,7 +14,7 @@ Change to folder `recipes/01-static`:
 ❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/01-static
 ```
 
-Change the content of the `html` folder or use the example inside. Start the Docker container after that:
+Change the content of the `html` folder to your needs or use the example inside. Start the Docker container after that:
 
 ```bash
 ❯ docker-compose up -d

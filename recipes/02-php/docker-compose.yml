@@ -77,6 +77,25 @@ services:
       - ./docker/nginx/conf.d/site.conf:/etc/nginx/conf.d/default.conf
     networks:
       - network-internal
+    depends_on:
+      - php
+
+  # PHP FPM 8.0.10 to serve dynamic php scripts
+  php:
+    # @see: https://hub.docker.com/_/php
+    image: "php:8.0.10-fpm"
+    container_name: "${NAMESPACE}-service-php-development"
+    hostname: "${NAMESPACE_HOSTNAME}-service-php-development"
+    volumes:
+      # Server static pages
+      - ./html:/var/www/web
+      # Add PHP configuration
+      - ./docker/php/conf.d/config.ini:/usr/local/etc/php/conf.d/config.ini
+    networks:
+      - network-internal
+    environment:
+      # app version
+      VERSION_APP: "${VERSION_APP}"
 
 # configure networks
 networks:
