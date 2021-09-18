@@ -62,14 +62,14 @@ version: "3.8"
 services:
 
   # Nginx to serve the app.
-  web:
+  nginx:
     # @see: https://hub.docker.com/_/nginx
     image: "nginx:latest"
-    container_name: "${NAMESPACE}-service-web-development"
-    hostname: "${NAMESPACE_HOSTNAME}-service-web-development"
+    container_name: "${NAMESPACE}-service-nginx-development"
+    hostname: "${NAMESPACE_HOSTNAME}-service-nginx-development"
     restart: always
     ports:
-      - ${PORT_WEB}:80
+      - ${PORT_NGINX}:80
     volumes:
       # Server static pages
       - ./html:/var/www/web

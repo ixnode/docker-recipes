@@ -39,7 +39,7 @@ Open http://localhost:8000/ to see your content.
 ### Login into container
 
 ```bash
-❯ docker-compose exec web bash
+❯ docker-compose exec nginx bash
 ```
 
 ### Restart container:
@@ -71,7 +71,7 @@ FROM nginx:latest
 # Working dir
 WORKDIR /var/www/web
 
-# Add html folder to web folder
+# Add html folder to static folder
 COPY ./html /var/www/web
 
 # Add configs to nginx
@@ -128,8 +128,8 @@ version: "3.8"
 # configure services
 services:
 
-  # Use ixnode/docker-recipes:0.1.0-static
-  docker-recipes-static:
+  # Use ixnode/docker-recipes:0.1.0-static with the data it contains
+  nginx:
     image: "ixnode/docker-recipes:0.1.0-static"
     container_name: "ixnode-docker-recipes-0.1.0-static"
     hostname: "ixnode-docker-recipes-0-1-0-static"
