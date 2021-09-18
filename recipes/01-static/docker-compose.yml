@@ -65,8 +65,8 @@ services:
   web:
     # https://hub.docker.com/_/nginx
     image: "nginx:latest"
-    container_name: "web-${NAMESPACE}"
-    hostname: "web-${NAMESPACE_HOSTNAME}"
+    container_name: "${NAMESPACE}-service-web-development"
+    hostname: "${NAMESPACE_HOSTNAME}-service-web-development"
     restart: always
     ports:
       - ${PORT_WEB}:80
@@ -82,4 +82,4 @@ services:
 networks:
   network-internal:
     external: false
-    name: "network-internal-${NAMESPACE_HOSTNAME}"
+    name: "${NAMESPACE_HOSTNAME}-network-internal"
