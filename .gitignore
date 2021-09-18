@@ -4,3 +4,8 @@
 *~
 /.DS_Store
 ###< ignore some local files ### 
+
+###> ignore vendor and composer lock files ###
+vendor
+composer.lock
+###< ignore vendor and composer lock files ###
