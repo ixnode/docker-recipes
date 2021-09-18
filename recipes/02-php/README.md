@@ -106,6 +106,10 @@ Keep the version numbers of your application clean and tag your image accordingl
 Create `docker-compose.yml` with the following content:
 
 ```yaml
+# ❯ cd recipes/02-php
+# ❯ mkdir docker_compose && cd docker_compose
+# ❯ vi docker-compose.yml
+
 version: "3.8"
 
 # configure services

@@ -123,6 +123,10 @@ To remove the previously created container, use:
 Create `docker-compose.yml` with the following content:
 
 ```yaml
+# ❯ cd recipes/01-static
+# ❯ mkdir docker_compose && cd docker_compose
+# ❯ vi docker-compose.yml
+
 version: "3.8"
 
 # configure services
