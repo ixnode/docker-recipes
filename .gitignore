@@ -1,0 +1,6 @@
+###> ignore some local files ###
+/.idea
+*.iml
+*~
+/.DS_Store
+###< ignore some local files ### 
