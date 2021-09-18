@@ -132,7 +132,7 @@ version: "3.8"
 # configure services
 services:
 
-  # Use ixnode/docker-recipes:0.1.0-static with the data it contains
+  # Use ixnode/docker-recipes:0.1.0-static image (originated from image nginx:latest) with the data it contains
   nginx:
     image: "ixnode/docker-recipes:0.1.0-static"
     container_name: "ixnode-docker-recipes-0.1.0-static"

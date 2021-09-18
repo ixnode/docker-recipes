@@ -1,8 +1,8 @@
 # ===========================================
-# A recipe to deliver dynamic PHP pages via nginx.
+# A recipe to deliver dynamic Composer PHP pages via nginx.
 #
 # @author Björn Hempel <bjoern@hempel.li>
-# @version 1.0 (2021-09-18)
+# @version 1.0 (2021-09-19)
 # ===========================================
 
 # ===========================================
@@ -42,17 +42,18 @@
 # ----------------------
 # ❯ docker-compose exec nginx bash
 # ❯ docker-compose exec php bash
+# ❯ docker-compose exec composer bash
 #
 # Open app (local):
 # -----------------
 # - http://localhost:8000/
 #
-# Restart container:
-# ------------------
+# Restart containers:
+# -------------------
 # ❯ docker-compose restart
 #
-# Shutdown container:
-# -------------------
+# Shutdown containers:
+# --------------------
 # ❯ docker-compose down
 #
 # ===========================================
@@ -80,6 +81,7 @@ services:
       - network-internal
     depends_on:
       - php
+      - composer
 
   # PHP FPM 8.0.10 to serve dynamic php scripts
   php:
@@ -97,6 +99,18 @@ services:
     environment:
       # app version
       VERSION_APP: "${VERSION_APP}"
+
+  # Composer image
+  composer:
+    image: "composer:latest"
+    container_name: "${NAMESPACE}-service-composer-development"
+    hostname: "${NAMESPACE_HOSTNAME}-service-composer-development"
+    command: ["composer", "install"]
+    volumes:
+      - ./html:/app
+    user: "${UID}:${GID}"
+    networks:
+      - network-internal
 
 # configure networks
 networks:

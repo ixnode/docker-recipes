@@ -24,11 +24,15 @@
  * SOFTWARE.
  */
 
+require __DIR__.'/vendor/autoload.php';
+
+use SebastianBergmann\Timer\Timer;
+
 /**
  * Class Controller
  *
  * @author Björn Hempel <bjoern@hempel.li>
- * @version 1.0 (2021-09-18)
+ * @version 1.0 (2021-09-19)
  */
 class Controller
 {
@@ -37,12 +41,13 @@ class Controller
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>02-php</title>
+    <title>03-composer</title>
 </head>
 <body>
-    <h2>02-php</h2>
-    <p>Hello Docker! :) This docker setup that shows how to serve dynamic pages in docker.</p>
-    <p><strong>Version</strong>: v%s</p>
+    <h2>03-composer</h2>
+    <p>Hello Docker! :) This docker setup that shows how to serve dynamic pages in docker with composer.</p>
+    <p><strong>Version</strong>: %s</p>
+    <p><strong>Time</strong>: %s</p>
 </body>
 </html>
 HTML;
@@ -54,7 +59,7 @@ HTML;
      */
     public function __construct()
     {
-        $this->version = getenv('VERSION_APP');
+        $this->version = gettype(getenv('VERSION_APP')) === 'string' ? sprintf('v%s', getenv('VERSION_APP')) : 'unknown';
     }
 
     /**
@@ -62,7 +67,14 @@ HTML;
      */
     public function output(): void
     {
-        print sprintf(self::HTML_TEMPLATE, $this->version);
+        $timer = new Timer();
+        $timer->start();
+
+        sleep(1);
+
+        $time = $timer->stop();
+
+        print sprintf(self::HTML_TEMPLATE, $this->version, $time->asString());
     }
 }
 

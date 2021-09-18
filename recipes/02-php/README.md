@@ -131,7 +131,7 @@ services:
     depends_on:
       - php
 
-  # Use ixnode/docker-recipes:0.1.0-php with the data it contains
+  # Use ixnode/docker-recipes:0.1.0-php image (originated from image php:8.0.10-fpm) with the data it contains
   php:
     image: "ixnode/docker-recipes:0.1.0-php-php"
     container_name: "ixnode-docker-recipes-0.1.0-php-php"
