@@ -139,6 +139,9 @@ services:
     restart: always
     volumes:
       - data:/var/www/web # This container shares the folder /var/www/web via volume data, because it already exists
+    environment:
+      # app version
+      VERSION_APP: "0.1.0"
 
 # configure volumes
 volumes:

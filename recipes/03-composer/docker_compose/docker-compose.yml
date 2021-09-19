@@ -1,0 +1,47 @@
+version: "3.8"
+
+# configure services
+services:
+
+  # Nginx to serve the app.
+  nginx:
+    image: "nginx:latest"
+    container_name: "ixnode-docker-recipes-0.1.0-composer-nginx"
+    hostname: "ixnode-docker-recipes-0-1-0-composer-nginx"
+    restart: always
+    ports:
+      - 8001:80
+    volumes:
+      # Server static pages
+      - data:/var/www/web
+      # Add nginx configuration
+      - ../docker/nginx/conf.d/site.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - composer
+
+  # Use ixnode/docker-recipes:0.1.0-php image (originated from image php:8.0.10-fpm) with the data it contains
+  php:
+    image: "ixnode/docker-recipes:0.1.0-composer"
+    container_name: "ixnode-docker-recipes-0.1.0-composer-php"
+    hostname: "ixnode-docker-recipes-0-1-0-composer-php"
+    restart: always
+    volumes:
+      - data:/var/www/web # This container shares the folder /var/www/web via volume data, because it already exists
+    environment:
+      # app version
+      VERSION_APP: "0.1.0"
+
+  # Composer image
+  composer:
+    image: "composer:latest"
+    container_name: "ixnode-docker-recipes-0.1.0-composer-composer"
+    hostname: "ixnode-docker-recipes-0-1-0-composer-composer"
+    command: ["composer", "install"]
+    volumes:
+      - data:/app # This container shares the folder /app via volume data, because it already exists
+
+# configure volumes
+volumes:
+  data:
+    name: "ixnode-docker-recipes-0.1.0-data"
