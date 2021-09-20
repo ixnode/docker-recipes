@@ -54,7 +54,7 @@ Open http://localhost:8000/ to see your content.
 ❯ docker-compose down
 ```
 
-## Build, pull and run ready-to-use images
+## Build, pull and run own and ready-to-use images
 
 ### Create `Dockerfile`
 
@@ -80,6 +80,7 @@ COPY ./docker/nginx/conf.d/site.conf /etc/nginx/conf.d/default.conf
 
 ### Build docker image `ixno/docker-recipes` with version `0.1.0-static`
 
+Adapt the name `ixno/docker-recipes` to your own repository.
 Keep the version numbers of your application clean and tag your image accordingly (`:0.1.0-static`):
 
 ```bash

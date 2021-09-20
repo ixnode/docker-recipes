@@ -57,7 +57,7 @@ Open http://localhost:8000/ to see your content.
 ```bash
 ❯ docker-compose down
 ```
-## Build, pull and run ready-to-use images
+## Build, pull and run own and ready-to-use images
 
 ### Create `Dockerfile`
 
@@ -85,6 +85,7 @@ COPY ./docker/php/conf.d/config.ini /usr/local/etc/php/conf.d/config.ini
 
 ### Build docker image `ixno/docker-recipes` with version `0.1.0-composer`
 
+Adapt the name `ixno/docker-recipes` to your own repository.
 Keep the version numbers of your application clean and tag your image accordingly (`:0.1.0-composer`):
 
 ```bash
