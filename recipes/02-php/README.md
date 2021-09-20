@@ -150,7 +150,7 @@ volumes:
     name: "ixnode-docker-recipes-0.1.0-data"
 ```
 
-Start container:
+Start containers:
 
 ```bash
 ❯ docker-compose up -d
@@ -158,7 +158,7 @@ Start container:
 
 * @open: http://localhost:8001/.
 
-Shutdown container:
+Shutdown containers:
 
 ```bash
 ❯ docker-compose down 
