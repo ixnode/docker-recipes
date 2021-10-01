@@ -9,3 +9,7 @@
 vendor
 composer.lock
 ###< ignore vendor and composer lock files ###
+
+###> ignore some config files ###
+.env
+###< ignore some config files ###

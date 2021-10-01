@@ -2,7 +2,7 @@
 # A recipe to deliver static pages via nginx.
 #
 # @author Björn Hempel <bjoern@hempel.li>
-# @version 1.0 (2021-09-18)
+# @version 1.0 (2021-10-01)
 # ===========================================
 
 # ===========================================
@@ -30,9 +30,15 @@
 # ===========================================
 
 # ===========================================
+#
 # Start app:
 # ----------
 # ❯ docker-compose up -d
+# ❯ open http://localhost:8000
+#
+# Show logs:
+# ----------
+# ❯ docker-compose logs -f
 #
 # Show container:
 # ---------------
@@ -42,13 +48,11 @@
 # ---------------------
 # ❯ docker-compose exec nginx bash
 #
-# Open app (local):
-# -----------------
-# - http://localhost:8000/
-#
-# Restart container:
-# ------------------
+# Restart, stop and start container:
+# ----------------------------------
 # ❯ docker-compose restart
+# ❯ docker-compose stop
+# ❯ docker-compose start
 #
 # Shutdown container:
 # -------------------
@@ -65,8 +69,8 @@ services:
   nginx:
     # @see: https://hub.docker.com/_/nginx
     image: "nginx:latest"
-    container_name: "${NAMESPACE}-service-nginx-development"
-    hostname: "${NAMESPACE_HOSTNAME}-service-nginx-development"
+    container_name: "${NAMESPACE_DEVELOPMENT}.nginx"
+    hostname: "${NAMESPACE_HOSTNAME_DEVELOPMENT}-nginx"
     restart: always
     ports:
       - ${PORT_NGINX}:80
@@ -82,4 +86,4 @@ services:
 networks:
   network-internal:
     external: false
-    name: "${NAMESPACE}-network-internal"
+    name: "${NAMESPACE_DEVELOPMENT}.network.internal"
