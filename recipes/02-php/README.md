@@ -5,7 +5,7 @@ This docker recipe serves dynamic PHP pages.
 ## Used Docker images
 
 * [Official build of Nginx](https://hub.docker.com/_/nginx): `nginx:latest`
-* [Official build of PHP](https://hub.docker.com/_/php): `php:8.0.10-fpm` (FastCGI Process Manager)
+* [Official build of PHP](https://hub.docker.com/_/php): `php:8.0.11-fpm` (FastCGI Process Manager)
 
 ## Quick execution
 
