@@ -8,7 +8,7 @@ This docker recipe serves dynamic Composer PHP pages.
 * [Official build of PHP](https://hub.docker.com/_/php): `php:8.0.11-fpm` (FastCGI Process Manager)
 * [Official build of composer](https://hub.docker.com/_/composer) `composer:latest`
 
-## Quick execution
+## Quick execution (development mode)
 
 Change to folder `recipes/03-composer`:
 
