@@ -1,8 +1,8 @@
 # ===========================================
-# A Dockerfile to build the app (static)
+# A Dockerfile to build the app (02-php)
 #
 # @author Björn Hempel <bjoern@hempel.li>
-# @version 1.0 (2021-10-01)
+# @version 1.0 (2021-10-02)
 # ===========================================
 
 # ===========================================
@@ -33,17 +33,17 @@
 #
 # Change directory:
 # -----------------
-# ❯ cd recipes/01-static
+# ❯ cd recipes/02-php
 #
 # Build the app:
 # --------------
-# ❯ docker build -t ixnode/docker-recipes-01-static:latest -f build/Dockerfile .
+# ❯ docker build -t ixnode/docker-recipes-02-php:latest -f build/Dockerfile .
 # ❯ docker image ls
 #
 # Push the app to docker hub:
 # ---------------------------
 # ❯ docker login -u [username]
-# ❯ docker push ixnode/docker-recipes-01-static:latest
+# ❯ docker push ixnode/docker-recipes-02-php:latest
 #
 # Check version:
 # --------------
@@ -51,20 +51,20 @@
 #
 # Tag latest version:
 # -------------------
-# ❯ docker tag ixnode/docker-recipes-01-static:latest ixnode/docker-recipes-01-static:$(cat VERSION)
+# ❯ docker tag ixnode/docker-recipes-02-php:latest ixnode/docker-recipes-02-php:$(cat VERSION)
 # ❯ docker image ls
-# ❯ docker push ixnode/docker-recipes-01-static:$(cat VERSION)
+# ❯ docker push ixnode/docker-recipes-02-php:$(cat VERSION)
 #
 # ===========================================
 
-# Use last nginx image
-FROM nginx:latest
+# Use PHP 8.0.11 FPM as data container (needs rw access to data)
+FROM php:8.0.11-fpm
 
 # Working dir
 WORKDIR /var/www/web
 
-# Add html folder to static folder
+# Add html folder to web folder
 COPY ./html /var/www/web
 
 # Add configs to nginx
-COPY ./docker/nginx/conf.d/site.conf /etc/nginx/conf.d/default.conf
+COPY ./docker/php/conf.d/config.ini /usr/local/etc/php/conf.d/config.ini

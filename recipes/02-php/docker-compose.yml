@@ -2,7 +2,7 @@
 # A recipe to deliver dynamic PHP pages via nginx.
 #
 # @author Björn Hempel <bjoern@hempel.li>
-# @version 1.0 (2021-09-18)
+# @version 1.0 (2021-10-02)
 # ===========================================
 
 # ===========================================
@@ -33,6 +33,8 @@
 # Start app:
 # ----------
 # ❯ docker-compose up -d
+# ❯ open http://localhost:8000
+# ❯ open http://localhost:8000/phpinfo.php
 #
 # Show containers:
 # ----------------
@@ -66,8 +68,8 @@ services:
   nginx:
     # @see: https://hub.docker.com/_/nginx
     image: "nginx:latest"
-    container_name: "${NAMESPACE}-service-nginx-development"
-    hostname: "${NAMESPACE_HOSTNAME}-service-nginx-development"
+    container_name: "${NAMESPACE_DEVELOPMENT}.nginx"
+    hostname: "${NAMESPACE_HOSTNAME_DEVELOPMENT}-nginx"
     restart: always
     ports:
       - ${PORT_NGINX}:80
@@ -81,14 +83,14 @@ services:
     depends_on:
       - php
 
-  # PHP FPM 8.0.10 to serve dynamic php scripts
+  # PHP FPM 8.0.11 to serve dynamic php scripts
   php:
     # @see: https://hub.docker.com/_/php
-    image: "php:8.0.10-fpm"
-    container_name: "${NAMESPACE}-service-php-development"
-    hostname: "${NAMESPACE_HOSTNAME}-service-php-development"
+    image: "php:8.0.11-fpm"
+    container_name: "${NAMESPACE_DEVELOPMENT}.php"
+    hostname: "${NAMESPACE_HOSTNAME_DEVELOPMENT}-php"
     volumes:
-      # Server static pages
+      # Server dynamic pages
       - ./html:/var/www/web
       # Add PHP configuration
       - ./docker/php/conf.d/config.ini:/usr/local/etc/php/conf.d/config.ini
@@ -102,4 +104,4 @@ services:
 networks:
   network-internal:
     external: false
-    name: "${NAMESPACE}-network-internal"
+    name: "${NAMESPACE_DEVELOPMENT}.network.internal"

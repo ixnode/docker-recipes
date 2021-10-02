@@ -18,11 +18,19 @@
 ❯ docker container ls
 ```
 
-## Login into container
+## Login into containers
 
 ```bash
+# If a nginx container exists
 ❯ docker-compose exec nginx bash
+
+# If a php container exists
+❯ docker-compose exec php bash
+
+# etc.
 ```
+
+
 
 ## Restart, stop and start container:
 
