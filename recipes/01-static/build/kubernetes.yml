@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: de-ixno-docker-recipes-static-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      bb: web
+  template:
+    metadata:
+      labels:
+        bb: web
+    spec:
+      containers:
+      - name: de-ixno-docker-recipes-static-nginx
+        image: ixnode/docker-recipes-01-static:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: de-ixno-docker-recipes-static-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    bb: web
+  ports:
+  - port: 8000 # internal port (within the cluster)
+    targetPort: 80 # target port that the pod will be listening on
+    nodePort: 30001 # external port (from external ip)

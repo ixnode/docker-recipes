@@ -1,4 +1,4 @@
-# Build and pull your own and ready-to-use images
+# Build and pull your own ready-to-use image
 
 The following built image is a ready-to-use image and contains all data
 necessary for the operation of the app (source code of the app).
@@ -72,4 +72,6 @@ dist configurations, etc.) are not packaged with (@see `.dockerignore`):
 
 ### Using the image
 
-* @see: [Run docker container with Docker Compose](docs/docker-compose.md)
+* [Run docker image with Docker Compose](../docs/deploy/docker-compose.md)
+* [Deploy docker image with Docker Compose and Traefik](../docs/deploy/docker-compose.traefik.md)
+* [Deploy docker image to Kubernetes](../docs/deploy/kubernetes.md)

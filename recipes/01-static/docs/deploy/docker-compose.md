@@ -1,9 +1,9 @@
-# Run docker container with Docker Compose
+# Run docker image with Docker Compose
 
-* @see: [Build and pull your own and ready-to-use images](../README.md)
+* @see: [Build and pull your own ready-to-use image](../../build/README.md)
 * @see: https://docs.docker.com/compose/
 
-## Quick use
+## 1. Quick use
 
 Run docker container with Docker Compose.
 
