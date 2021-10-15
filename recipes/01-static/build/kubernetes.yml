@@ -7,15 +7,22 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      bb: web
+      run: 01-static
   template:
     metadata:
       labels:
-        bb: web
+        run: 01-static
     spec:
+      # create one or many pods with the following containers inside:
+      # - a pod is like a build machine and can contain many containers with its given unique ports
+      # - each container should provide its own unique port
+      # - @see: https://stackoverflow.com/questions/54289786/dual-nginx-in-one-kubernetes-pod
       containers:
       - name: de-ixno-docker-recipes-static-nginx
         image: ixnode/docker-recipes-01-static:latest
+        ports:
+          - containerPort: 80 # opens and assign this port within the current pod (must be unambiguous within the current pod)
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
@@ -23,10 +30,11 @@ metadata:
   name: de-ixno-docker-recipes-static-service
   namespace: default
 spec:
-  type: NodePort
+  type: LoadBalancer # LoadBalancer or NodePort
   selector:
-    bb: web
+    run: 01-static
   ports:
-  - port: 8000 # internal port (within the cluster)
-    targetPort: 80 # target port that the pod will be listening on
-    nodePort: 30001 # external port (from external ip)
+  - name: "http-8000"
+    port: 8000 # internal port (accessible within the build cluster)
+    targetPort: 80 # target port from the build pod with run:01-static (machine): accessible within the pod (machine)
+    nodePort: 30001 # external port (accessible from external ip)
