@@ -30,4 +30,4 @@ security policy [here](https://github.com/ixnode/docker-recipes/security/policy)
 
 ## License
 
-PHPVault is licensed under [MIT](https://github.com/ixnode/docker-recipes/blob/master/LICENSE.md).
+The Docker Recipes are licensed under [MIT](https://github.com/ixnode/docker-recipes/blob/master/LICENSE.md).
