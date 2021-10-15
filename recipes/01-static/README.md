@@ -4,9 +4,13 @@ This docker recipe serves static HTML pages.
 
 ## Used Docker images
 
-* [nginx](https://hub.docker.com/_/nginx): `nginx:latest`
+* [Official build of Nginx](https://hub.docker.com/_/nginx): `nginx:latest`
+
+
 
 ## Quick execution (development mode)
+
+Change to folder `recipes/01-static`:
 
 ```bash
 ❯ git clone https://github.com/ixnode/docker-recipes.git && \
@@ -15,7 +19,7 @@ This docker recipe serves static HTML pages.
 
 Check the content of the `docker-compose.yml`:
 
-* https://github.com/ixnode/docker-recipes/blob/main/recipes/01-static/docker-compose.yml
+* * [docker-compose.yml](docker-compose.yml)
 
 Change the content of the `recipes/01-static/html` folder to your needs or use the
 example inside. Start the Docker container after that:

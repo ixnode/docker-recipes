@@ -1,9 +1,9 @@
-# Run docker container with Docker Compose
+# Run docker image with Docker Compose
 
-* @see: [Build and pull your own and ready-to-use images](../README.md)
+* @see: [Build and pull your own ready-to-use image](../../build/README.md)
 * @see: https://docs.docker.com/compose/
 
-## Quick use
+## 1. Quick use
 
 Run docker container with Docker Compose.
 
@@ -11,7 +11,7 @@ Run docker container with Docker Compose.
 
 ```bash
 ❯ git clone https://github.com/ixnode/docker-recipes.git && \
-  cd docker-recipes/recipes/02-php
+  cd docker-recipes/recipes/03-composer
 ```
 
 ### Copy the .env file and customize it according to your needs
@@ -37,6 +37,6 @@ Run docker container with Docker Compose.
 Copy the docker-compose.yml and all its used configuration files directly
 from the repository and customize them to your needs:
 
-* https://github.com/ixnode/docker-recipes/blob/main/recipes/02-php/build/docker-compose.yml
+* [build/docker-compose.yml](../../build/docker-compose.yml)
 
 Start the container and install the dependencies as in the previous chapter.

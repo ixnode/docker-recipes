@@ -13,10 +13,16 @@ This docker recipe serves dynamic Composer PHP pages.
 Change to folder `recipes/03-composer`:
 
 ```bash
-❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/03-composer
+❯ git clone https://github.com/ixnode/docker-recipes.git && \
+  cd docker-recipes/recipes/03-composer
 ```
 
-Change the content of the `html` folder to your needs or use the example inside. Start the Docker containers after that:
+Check the content of the `docker-compose.yml`:
+
+* * [docker-compose.yml](docker-compose.yml)
+
+Change the content of the `recipes/03-composer/html` folder to your needs or use the
+example inside. Start the Docker container after that:
 
 ```bash
 ❯ docker-compose up -d
@@ -30,18 +36,14 @@ changed. The changes are visible immediately after reloading the browser.
 
 @see: [Useful docker commands](../../docs/commands.md)
 
-## Build and pull your own and ready-to-use images
+## Other tasks
 
-* @see: [Build, pull and run your own and ready-to-use images](build/README.md)
+### Build new image
 
-## Run your own and ready-to-use image with Docker Compose
+* [Build, pull and run your own and ready-to-use image](build/README.md)
 
-* @see: [Run your own and ready-to-use image with Docker Compose](build/docs/docker-compose.md)
+### Using the image
 
-## Deploy your own and ready-to-use image with Docker Compose and Traefik
-
-* @see: [Deploy your own and ready-to-use image with Docker Compose and Traefik](build/docs/docker-compose.traefik.md)
-
-## Deploy your own and ready-to-use image to Kubernetes
-
-* @see: [Deploy your own and ready-to-use image to Kubernetes](build/docs/kubernetes.md)
+* [Run docker image with Docker Compose](docs/deploy/docker-compose.md)
+* [Deploy docker image with Docker Compose and Traefik](docs/deploy/docker-compose.traefik.md)
+* [Deploy docker image to Kubernetes](docs/deploy/kubernetes.md)
