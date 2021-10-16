@@ -1,8 +1,8 @@
 # ===========================================
-# A Dockerfile to build the app (03-composer)
+# A Dockerfile to build the app (04-multi)
 #
 # @author Björn Hempel <bjoern@hempel.li>
-# @version 1.0 (2021-10-02)
+# @version 1.0 (2021-10-16)
 # ===========================================
 
 # ===========================================
@@ -33,32 +33,39 @@
 #
 # Change directory:
 # -----------------
-# ❯ cd recipes/03-composer
-#
-# Build the app:
-# --------------
-# ❯ docker build -t ixnode/docker-recipes-03-composer:latest -f build/Dockerfile .
-# ❯ docker image ls
-#
-# Push the app to docker hub:
-# ---------------------------
-# ❯ docker login -u [username]
-# ❯ docker push ixnode/docker-recipes-03-composer:latest
+# ❯ cd recipes/04-multi
 #
 # Check version:
 # --------------
 # ❯ cat VERSION
 #
-# Tag latest version:
-# -------------------
-# ❯ docker tag ixnode/docker-recipes-03-composer:latest ixnode/docker-recipes-03-composer:$(cat VERSION)
+# Build the app:
+# --------------
+# ❯ docker build -t ixnode/docker-recipes-04-multi:$(cat VERSION) -t ixnode/docker-recipes-04-multi:latest -f build/Dockerfile .
 # ❯ docker image ls
-# ❯ docker push ixnode/docker-recipes-03-composer:$(cat VERSION)
+#
+# Push the app to docker hub:
+# ---------------------------
+# ❯ docker login -u [username]
+# ❯ docker push ixnode/docker-recipes-04-multi:$(cat VERSION)
+# ❯ docker push ixnode/docker-recipes-04-multi:latest
 #
 # ===========================================
 
+# Use composer:latest to build the app
+FROM composer:latest as builder
+
+# Set working dir
+WORKDIR /app
+
+# Add html folder to app folder
+COPY ./html/composer.* ./
+
+# Composer install
+RUN composer install
+
 # Use PHP 8.0.11 FPM as data container (needs rw access to data)
-FROM php:8.0.11-fpm
+FROM php:8.0.11-fpm as app
 
 # Working dir
 WORKDIR /var/www/web
@@ -68,3 +75,6 @@ COPY ./html /var/www/web
 
 # Add configs to nginx
 COPY ./docker/php/conf.d/config.ini /usr/local/etc/php/conf.d/config.ini
+
+# Copy built vendor directory inside this app image
+COPY --from=builder /app/vendor /var/www/web/vendor

@@ -16,6 +16,10 @@ The recipe [02-php](recipes/02-php/README.md) serves dynamic PHP pages.
 
 The recipe [03-composer](recipes/03-composer/README.md) serves dynamic Composer PHP pages.
 
+### 04) Serve dynamic Composer PHP pages with multi-stage builds
+
+The recipe [04-multi](recipes/04-multi/README.md) serves dynamic Composer PHP pages with multi-stage builds.
+
 ## Author
 
 > [Björn Hempel](docs/author/bjoern-hempel.en.md)<br>

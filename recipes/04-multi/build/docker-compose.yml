@@ -2,7 +2,7 @@
 # A recipe to deliver the dynamic php app via Nginx.
 #
 # @author Björn Hempel <bjoern.hempel@ressourcenmangel.de>
-# @version 1.0 (2021-10-02)
+# @version 1.0 (2021-10-16)
 # ===========================================
 
 # ===========================================
@@ -32,7 +32,7 @@
 # ===========================================
 # Installation:
 # -------------
-# ❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/03-composer
+# ❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/04-multi
 # ❯ ln -s .env.dist .env
 # ❯ cd build
 # ❯ docker-compose up -d
@@ -85,9 +85,9 @@ services:
       - php
       - composer
 
-  # Use ixnode/docker-recipes-03-composer:latest image (originated from image php:8.0.11-fpm) with the data it contains
+  # Use ixnode/docker-recipes-04-multi:latest image (originated from image php:8.0.11-fpm) with the data it contains
   php:
-    image: "ixnode/docker-recipes-03-composer:latest"
+    image: "ixnode/docker-recipes-04-multi:latest"
     container_name: "${NAMESPACE}.php"
     hostname: "${NAMESPACE_HOSTNAME}-php"
     restart: always
@@ -96,15 +96,6 @@ services:
     environment:
       # app version
       VERSION_APP: "0.1.0"
-
-  # Composer image
-  composer:
-    image: "composer:latest"
-    container_name: "${NAMESPACE}.composer"
-    hostname: "${NAMESPACE_HOSTNAME}-composer"
-    command: ["composer", "install"]
-    volumes:
-      - data:/app # This container shares the folder /app via volume data, because it already exists
 
 # configure volumes
 volumes:
