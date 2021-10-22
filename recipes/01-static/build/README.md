@@ -39,31 +39,19 @@ Before building the image, please check that all unneeded files (cache, vendor,
 dist configurations, etc.) are not packaged with (@see `.dockerignore`):
 
 ```bash
-# Login to repository
-❯ docker login -u [username]
-
-# Build image
-❯ docker build -t ixnode/docker-recipes-01-static:latest -f build/Dockerfile .
-
-# Check images
+❯ docker build \
+  -t ixnode/docker-recipes-01-static:$(cat VERSION) \
+  -t ixnode/docker-recipes-01-static:latest \
+  -f build/Dockerfile .
 ❯ docker image ls
-
-# Push image
-❯ docker push ixnode/docker-recipes-01-static:latest
 ```
 
-### Tag new version
+### Push the app to docker hub
 
 ```bash
-# Tag the image with the new version number
-❯ docker tag ixnode/docker-recipes-01-static:latest \
-  ixnode/docker-recipes-01-static:$(cat VERSION)
-
-# Check images
-❯ docker image ls
-
-# Push image
+❯ docker login -u [username]
 ❯ docker push ixnode/docker-recipes-01-static:$(cat VERSION)
+❯ docker push ixnode/docker-recipes-01-static:latest
 ```
 
 ### Check the images in the repository

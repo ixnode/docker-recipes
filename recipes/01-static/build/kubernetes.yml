@@ -1,9 +1,100 @@
+# ===========================================
+# A recipe to apply a static html app via Nginx to k8s cluster.
+#
+# @author Björn Hempel <bjoern.hempel@ressourcenmangel.de>
+# @version 1.0 (2021-10-21)
+# ===========================================
+
+# ===========================================
+# MIT License
+#
+# Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# ===========================================
+
+# ===========================================
+# Apply pods, services and deployments to k8s cluster:
+# ----------------------------------------------------
+# ❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/01-static/build
+# ❯ kubectl apply -f kubernetes.yml
+# ❯ open http://<cluster-ip>:30001
+#
+# Show logs:
+# ----------
+# ❯ kubectl get pods
+# ❯ kubectl logs <pod-name> -f
+#
+# Show pods, services, deployments:
+# ---------------------------------
+# ❯ kubectl get pods
+# ❯ kubectl get svc
+# ❯ kubectl get deploy
+#
+# With labels or filtered (debugging):
+# ------------------------------------
+# ❯ kubectl get pods --show-labels
+# ❯ kubectl get po --show-labels -l run=01-static
+#
+# Login into pod:
+# ---------------
+# ❯ kubectl get pods
+# ❯ kubectl exec -it <pod-name> -- bash
+#
+# Stop pods (debugging, etc.):
+# ----------------------------
+# ❯ kubectl delete po <pod-name> # gracefully
+# ❯ kubectl delete po <pod-name> -f # immediately
+#
+# Deploy a new version changes (change version from image and make use of minReadySeconds):
+# -----------------------------------------------------------------------------------------
+# ❯ kubectl apply -f kubernetes.yml
+# ❯ kubectl get rs # to show the new running ReplicaSet
+#
+# Shows the status of the deployment:
+# -----------------------------------
+# ❯ kubectl rollout status deploy de-ixno-docker-recipes-static-deployment
+#
+# Shows the history of the deployments and undo the deployment (if necessary):
+# ----------------------------------------------------------------------------
+# ❯ kubectl rollout status deploy de-ixno-docker-recipes-static-deployment
+#
+# # Switch to previews version
+# # Only in case of emergency! If possible use kubctl apply so that the status of the deployment always matches the K8s file!
+# ❯ kubectl rollout undo deploy de-ixno-docker-recipes-static-deployment --to-revision=<number-of-revision>
+#
+# Shutdown pods, services, deployments:
+# -------------------------------------
+# ❯ kubectl delete -f kubernetes.yml
+#
+# ===========================================
+
+# ===========================================
+# Deployment definition for the pod.
+# ===========================================
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: de-ixno-docker-recipes-static-deployment
   namespace: default
 spec:
+  minReadySeconds: 15 # The number of seconds until ReplicaSet are swapped after a deployment of a new release number of the image.
   replicas: 1
   selector:
     matchLabels:
@@ -19,11 +110,15 @@ spec:
       # - @see: https://stackoverflow.com/questions/54289786/dual-nginx-in-one-kubernetes-pod
       containers:
       - name: de-ixno-docker-recipes-static-nginx
-        image: ixnode/docker-recipes-01-static:latest
+        image: ixnode/docker-recipes-01-static:0.1.1
         ports:
           - containerPort: 80 # opens and assign this port within the current pod (must be unambiguous within the current pod)
       restartPolicy: Always
 ---
+
+# ===========================================
+# Service definition for the pod "run: 01-static"
+# ===========================================
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,7 +129,11 @@ spec:
   selector:
     run: 01-static
   ports:
-  - name: "http-8000"
-    port: 8000 # internal port (accessible within the build cluster)
-    targetPort: 80 # target port from the build pod with run:01-static (machine): accessible within the pod (machine)
+  - name: "http-80"
+    # if the port should be available within the cluster (port 8000)
+    #port: 8000 # internal port (accessible within the build cluster)
+    #targetPort: 80 # target port from the build pod with run:01-static (machine): accessible within the pod (machine)
+    #nodePort: 30001 # external port (accessible from external ip)
+    # if you need the application only outside of the cluster
+    port: 80 # target port from the build pod with run:01-static (machine): accessible within the pod (machine)
     nodePort: 30001 # external port (accessible from external ip)
