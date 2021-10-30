@@ -1,7 +1,7 @@
 # ===========================================
 # A recipe to apply a static html app via Nginx to k8s cluster.
 #
-# @author Björn Hempel <bjoern.hempel@ressourcenmangel.de>
+# @author Björn Hempel <bjoern@hempel.li>
 # @version 1.0 (2021-10-21)
 # ===========================================
 
@@ -32,6 +32,7 @@
 # ===========================================
 # Apply pods, services and deployments to k8s cluster:
 # ----------------------------------------------------
+# # minikube start --memory 4096 --vm-driver=kvm2 or minikube start --memory 4096 --vm-driver=docker
 # ❯ git clone https://github.com/ixnode/docker-recipes.git && cd docker-recipes/recipes/01-static/build
 # ❯ kubectl apply -f kubernetes.yml
 # ❯ open http://<cluster-ip>:30001

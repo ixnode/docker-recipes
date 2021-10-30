@@ -1,7 +1,7 @@
 # ===========================================
 # A recipe to deliver the static html app via Nginx.
 #
-# @author Björn Hempel <bjoern.hempel@ressourcenmangel.de>
+# @author Björn Hempel <bjoern@hempel.li>
 # @version 1.0 (2021-10-01)
 # ===========================================
 
